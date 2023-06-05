@@ -20,13 +20,17 @@ const Login = ({ setLoginUser }) => {
         })
     }
 
-    const login = () => {
-        axios.post("http://localhost:3000/login", user)
-            .then(res => {
-                alert(res.data.message)
-                setLoginUser(res.data.user)
-                navigate("/")
-            })
+
+    async function login(){
+        try {
+            const res = await axios.post("http://localhost:9002/login", user);
+            console.log(res);
+            if(res.status === 200){
+                navigate('/')
+            }   
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     return (
